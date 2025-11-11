@@ -1,0 +1,25 @@
+# Professional Firewall - Allowed Networks Configuration
+# Version: 2.0
+#
+# SECURITY NOTE: Only IP addresses and CIDR notation are accepted.
+# Hostname resolution has been disabled for security reasons.
+#
+# Format: One IP address or network per line
+# Syntax:
+#   - Single IP:  192.168.1.100
+#   - Network:    192.168.1.0/24
+#   - Comments:   Lines starting with # are ignored
+#
+# Examples:
+# 192.168.1.0/24         Allow entire local network
+# 10.0.0.0/8             Allow entire 10.x.x.x range
+# 172.16.0.0/12          Allow 172.16-31.x.x range
+# 192.168.1.50           Allow single specific IP
+#
+# IMPORTANT: This file is read at firewall start/restart only.
+# After modifying, run: /etc/init.d/firewall restart
+
+# Local network (adjust to match your network)
+192.168.1.0/24
+
+# Add your trusted networks below:
