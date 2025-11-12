@@ -2,6 +2,18 @@
 
 Advanced iptables-based firewall plugin for Enigma2 satellite receivers (OpenPLi/TNAP). Provides comprehensive network security with GUI management interface.
 
+## ⚠️ IMPORTANT: Mutual Exclusivity
+
+**This plugin CANNOT be installed alongside the WireGuard VPN plugin.**
+
+Both plugins manage iptables firewall rules but use **incompatible security models**:
+- **Firewall Plugin**: Selective internet access (whitelist-based)
+- **WireGuard Plugin**: VPN-only access (internet blocked)
+
+Installing both simultaneously will cause connection failures and security conflicts.
+
+**You must choose ONE approach.** See [Which Plugin Should I Use?](#which-plugin-should-i-use) below.
+
 ## Features
 
 - **Whitelist-based Protection**: Sensitive ports (80, 8001, 8080) are whitelist-only
@@ -23,6 +35,22 @@ Advanced iptables-based firewall plugin for Enigma2 satellite receivers (OpenPLi
    - Ports 8001, 80, 8080: Whitelist-only
    - SSH/FTP: Rate limited
    - All others: Blocked with logging
+
+## Which Plugin Should I Use?
+
+### Use Firewall Plugin if:
+- ✅ You need selective internet access (whitelist specific IPs)
+- ✅ You want to allow certain remote IPs direct access
+- ✅ You need attack monitoring and logging
+- ✅ Your receiver is internet-facing
+
+### Use WireGuard Plugin if:
+- ✅ You want VPN-only remote access
+- ✅ You prefer zero internet exposure
+- ✅ You access receiver only via VPN tunnel
+- ✅ You want simple "connect via VPN" experience
+
+**Cannot decide?** Most users should choose **WireGuard** for better security. Only use Firewall if you specifically need whitelist-based internet access.
 
 ## Installation
 

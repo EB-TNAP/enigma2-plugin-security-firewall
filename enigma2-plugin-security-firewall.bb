@@ -2,6 +2,9 @@ DESCRIPTION = "Firewall Security Manager with GUI - Hardened whitelist-first pro
 
 require conf/license/openpli-gplv2.inc
 
+# CRITICAL: Cannot coexist with WireGuard plugin (conflicting security models)
+RCONFLICTS:${PN} = "enigma2-plugin-extensions-wireguard-tnap"
+
 # Core dependencies that work across all kernel versions (5.x+)
 RDEPENDS:${PN} = "iptables \
                   conntrack-tools \
