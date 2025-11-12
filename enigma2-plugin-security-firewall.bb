@@ -69,17 +69,16 @@ RRECOMMENDS:${PN} += "${@bb.utils.contains('PREFERRED_VERSION_linux-qviart', '4.
 # Conflicts with WireGuard plugins (both provide port protection)
 RCONFLICTS:${PN} = "enigma2-plugin-extensions-wireguard-tnap enigma2-plugin-extensions-wireguard"
 
-SRC_URI = "file://firewall.sh \
-           file://firewall-monitor.sh \
-           file://firewall.users \
-           file://plugin.py \
-           file://__init__.py \
-          "
+# Source location: GitHub repository for direct building
+# This allows building directly from the GitHub repo without additional file: URIs
+# For local builds, comment out SRCREV and use file:// URIs instead
+SRC_URI = "git://github.com/EB-TNAP/enigma2-plugin-security-firewall.git;protocol=https;branch=main"
+SRCREV = "${AUTOREV}"
 
 PV = "3.3"
 PR = "r0"
 
-S = "${WORKDIR}"
+S = "${WORKDIR}/git"
 
 INITSCRIPT_NAME = "firewall"
 INITSCRIPT_PARAMS = "start 02 2 3 4 5 . stop 01 0 1 6 ."
@@ -91,15 +90,15 @@ PLUGIN_INSTALL_PATH = "${libdir}/enigma2/python/Plugins/Extensions/FirewallSecur
 do_install() {
 	# Install init scripts and configuration
 	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${WORKDIR}/firewall.sh ${D}${sysconfdir}/init.d/firewall
-	install -m 0755 ${WORKDIR}/firewall-monitor.sh ${D}${sysconfdir}/init.d/firewall-monitor
+	install -m 0755 ${S}/firewall.sh ${D}${sysconfdir}/init.d/firewall
+	install -m 0755 ${S}/firewall-monitor.sh ${D}${sysconfdir}/init.d/firewall-monitor
 	install -d ${D}${sysconfdir}
-	install -m 0644 ${WORKDIR}/firewall.users ${D}${sysconfdir}/firewall.users
+	install -m 0644 ${S}/firewall.users ${D}${sysconfdir}/firewall.users
 
 	# Install Python plugin
 	install -d ${D}${PLUGIN_INSTALL_PATH}
-	install -m 0644 ${WORKDIR}/plugin.py ${D}${PLUGIN_INSTALL_PATH}/plugin.py
-	install -m 0644 ${WORKDIR}/__init__.py ${D}${PLUGIN_INSTALL_PATH}/__init__.py
+	install -m 0644 ${S}/plugin.py ${D}${PLUGIN_INSTALL_PATH}/plugin.py
+	install -m 0644 ${S}/__init__.py ${D}${PLUGIN_INSTALL_PATH}/__init__.py
 
 	# Compile Python files
 	python3 -m compileall ${D}${PLUGIN_INSTALL_PATH}
