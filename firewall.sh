@@ -1,6 +1,6 @@
 #!/bin/sh
 # Professional Firewall for Enigma2 Receivers
-# Version: 3.2 - Mutual Exclusion (conflicts with WireGuard plugin)
+# Version: 3.3 - Mutual Exclusion (conflicts with WireGuard plugin)
 # Features: IPv4 + IPv6 protection, whitelist-first security, rate limiting, comprehensive logging
 #
 # Security Model:

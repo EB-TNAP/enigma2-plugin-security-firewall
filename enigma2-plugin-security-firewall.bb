@@ -76,7 +76,7 @@ SRC_URI = "file://firewall.sh \
            file://__init__.py \
           "
 
-PV = "3.2"
+PV = "3.3"
 PR = "r0"
 
 S = "${WORKDIR}"
