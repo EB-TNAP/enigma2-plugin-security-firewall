@@ -75,7 +75,8 @@ RCONFLICTS:${PN} = "enigma2-plugin-extensions-wireguard-tnap enigma2-plugin-exte
 SRC_URI = "git://github.com/EB-TNAP/enigma2-plugin-security-firewall.git;protocol=https;branch=main"
 SRCREV = "${AUTOREV}"
 
-PV = "3.3"
+# PV includes git commit info to force updates when GitHub changes
+PV = "3.3+git${SRCPV}"
 PR = "r0"
 
 S = "${WORKDIR}/git"
