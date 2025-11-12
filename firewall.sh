@@ -540,40 +540,6 @@ case "$1" in
 		echo "Starting Professional Firewall ${VERSION}..."
 		echo "========================================"
 
-		# CRITICAL: Check for conflicting WireGuard plugin
-		if [ -f /etc/wireguard/wg0.conf ] || [ -f /etc/init.d/wireguard ]; then
-			echo ""
-			echo "================================================================"
-			echo "ERROR: WireGuard VPN plugin detected!"
-			echo "================================================================"
-			echo ""
-			echo "The Firewall and WireGuard plugins have CONFLICTING security"
-			echo "models and cannot be installed together."
-			echo ""
-			echo "Your phone connection issue was caused by this conflict!"
-			echo ""
-			echo "Please choose ONE security approach:"
-			echo ""
-			echo "OPTION 1: Keep Firewall Plugin (Internet-facing with whitelist)"
-			echo "  - Allows selective internet access to specific IPs"
-			echo "  - Advanced threat protection and logging"
-			echo "  - For receivers exposed to the internet"
-			echo "  - Uninstall WireGuard: Menu > Plugins > Remove WireGuard"
-			echo "    OR: opkg remove enigma2-plugin-extensions-wireguard-tnap"
-			echo ""
-			echo "OPTION 2: Keep WireGuard Plugin (VPN-only access)"
-			echo "  - Remote access only via encrypted VPN tunnel"
-			echo "  - Complete internet lockdown (except VPN)"
-			echo "  - For private remote access scenarios"
-			echo "  - Uninstall Firewall: Menu > Plugins > Remove Firewall"
-			echo "    OR: opkg remove enigma2-plugin-security-firewall"
-			echo ""
-			echo "================================================================"
-			echo "Firewall startup ABORTED to prevent conflicts"
-			echo "================================================================"
-			exit 1
-		fi
-
 		# CRITICAL: Check if wrong rules exist BEFORE we do anything
 		# This catches boot-time issues where something else loaded bad rules
 		if command -v iptables >/dev/null 2>&1; then
