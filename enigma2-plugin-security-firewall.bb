@@ -223,17 +223,15 @@ if [ -z "$D" ]; then
 	echo "Version: $VERSION"
 	echo "==================================="
 	echo ""
-	echo "IMPORTANT: System will reboot in 5 seconds..."
+	echo "✓ Firewall service is active and protecting your system"
+	echo "✓ Plugin will appear in Extensions menu after Enigma2 restart"
 	echo ""
-	echo "After reboot:"
-	echo "  1. Plugin will appear in Extensions menu"
-	echo "  2. Firewall will auto-start with self-healing"
-	echo "  3. Check whitelist: cat /etc/firewall.users"
-	echo "  4. Add networks if needed (VPN, cellular)"
+	echo "Configuration:"
+	echo "  • Whitelist: /etc/firewall.users"
+	echo "  • Add trusted networks if needed (VPN, cellular)"
+	echo "  • Restart Enigma2 to see GUI plugin (or reboot)"
 	echo ""
-	echo "Rebooting in 5 seconds..."
-	sleep 5
-	reboot
+	echo "No reboot required - firewall is already active!"
 fi
 }
 

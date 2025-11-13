@@ -1,0 +1,76 @@
+REVERT INSTRUCTIONS: Remove Automatic Reboot
+==============================================
+
+Date: 2025-11-12
+Change: Removed automatic reboot from pkg_postinst in .bb file
+Reason: Reboot causes havoc during image builds
+File: enigma2-plugin-security-firewall.bb (lines 218-236)
+
+ORIGINAL CODE (with reboot):
+----------------------------
+	# Extract version from script
+	VERSION=$(grep '^# Version:' /etc/init.d/firewall | head -n 1 | sed 's/.*Version: //' | cut -d' ' -f1)
+
+	echo "==================================="
+	echo "Installation Complete"
+	echo "Version: $VERSION"
+	echo "==================================="
+	echo ""
+	echo "IMPORTANT: System will reboot in 5 seconds..."
+	echo ""
+	echo "After reboot:"
+	echo "  1. Plugin will appear in Extensions menu"
+	echo "  2. Firewall will auto-start with self-healing"
+	echo "  3. Check whitelist: cat /etc/firewall.users"
+	echo "  4. Add networks if needed (VPN, cellular)"
+	echo ""
+	echo "Rebooting in 5 seconds..."
+	sleep 5
+	reboot
+
+NEW CODE (no reboot):
+---------------------
+	# Extract version from script
+	VERSION=$(grep '^# Version:' /etc/init.d/firewall | head -n 1 | sed 's/.*Version: //' | cut -d' ' -f1)
+
+	echo "==================================="
+	echo "Installation Complete"
+	echo "Version: $VERSION"
+	echo "==================================="
+	echo ""
+	echo "✓ Firewall service is active and protecting your system"
+	echo "✓ Plugin will appear in Extensions menu after Enigma2 restart"
+	echo ""
+	echo "Configuration:"
+	echo "  • Whitelist: /etc/firewall.users"
+	echo "  • Add trusted networks if needed (VPN, cellular)"
+	echo "  • Restart Enigma2 to see GUI plugin (or reboot)"
+	echo ""
+	echo "No reboot required - firewall is already active!"
+
+WHY THIS IS SAFE:
+-----------------
+1. The firewall service is ALREADY started at line 203 of pkg_postinst
+2. Kernel modules are loaded by depmod at line 195
+3. Rules are verified at lines 207-212
+4. The plugin files are already installed
+5. Enigma2 will discover the plugin on its next natural restart
+6. During image builds, rebooting causes havoc and is unnecessary
+
+TESTING CHECKLIST:
+------------------
+[ ] Install plugin via opkg on running system
+[ ] Verify firewall starts: /etc/init.d/firewall status
+[ ] Verify rules loaded: iptables -L INPUT -n
+[ ] Restart Enigma2: init 4 && init 3
+[ ] Verify plugin appears in Extensions menu
+[ ] Test during image build (no reboot should occur)
+
+TO REVERT:
+----------
+Replace lines 218-236 in enigma2-plugin-security-firewall.bb with the ORIGINAL CODE above.
+
+Git command:
+cd /home/pli/github-repos/enigma2-plugin-security-firewall
+git log --oneline -n 20   # Find commit hash before this change
+git revert <commit-hash>  # Or use git checkout

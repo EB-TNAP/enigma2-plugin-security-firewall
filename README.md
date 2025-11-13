@@ -1,14 +1,14 @@
 # Enigma2 Firewall Security Plugin
 
-Advanced iptables-based firewall plugin for Enigma2 satellite receivers (OpenPLi/TNAP). Provides comprehensive network security with GUI management interface.
+Advanced iptables-based firewall plugin for Enigma2 satellite receivers (TNAP). Provides comprehensive network security with GUI management interface.
 
 ## ⚠️ IMPORTANT: Mutual Exclusivity
 
-**This plugin CANNOT be installed alongside the WireGuard VPN plugin.**
+**This plugin CANNOT be installed alongside the WireGuard-TNAP VPN plugin.**
 
 Both plugins manage iptables firewall rules but use **incompatible security models**:
 - **Firewall Plugin**: Selective internet access (whitelist-based)
-- **WireGuard Plugin**: VPN-only access (internet blocked)
+- **WireGuard-TNAP Plugin**: VPN-only access (internet blocked)
 
 Installing both simultaneously will cause connection failures and security conflicts.
 
@@ -44,17 +44,17 @@ Installing both simultaneously will cause connection failures and security confl
 - ✅ You need attack monitoring and logging
 - ✅ Your receiver is internet-facing
 
-### Use WireGuard Plugin if:
+### Use WireGuard-TNAP Plugin if:
 - ✅ You want VPN-only remote access
 - ✅ You prefer zero internet exposure
 - ✅ You access receiver only via VPN tunnel
 - ✅ You want simple "connect via VPN" experience
 
-**Cannot decide?** Most users should choose **WireGuard** for better security. Only use Firewall if you specifically need whitelist-based internet access.
+**Cannot decide?** Most users should choose **WireGuard-TNAP** for better security. Only use Firewall if you specifically need whitelist-based internet access.
 
 ## Installation
 
-### Via OpenPLi Feed
+### Via TNAP Feed
 
 ```bash
 opkg update
@@ -201,11 +201,11 @@ update-rc.d firewall defaults
 
 Tested on:
 - Octagon SF8008
-- All OpenPLi/TNAP supported receivers
+- All TNAP supported receivers
 
 ## Requirements
 
-- Enigma2 receiver (OpenPLi/TNAP image)
+- Enigma2 receiver (TNAP image)
 - iptables (pre-installed on most images)
 - Python 3.x
 - Optional: ip6tables (for IPv6 support)
@@ -224,13 +224,13 @@ Contact the maintainer privately with:
 
 GNU General Public License v2.0
 
-Copyright (C) 2025 OpenPLi/TNAP Development Team
+Copyright (C) 2025 TNAP Development Team
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
 ## Credits
 
-- **Original Development**: OpenPLi/TNAP Team
+- **Original Development**: TNAP Team
 - **Security Hardening**: Claude Code (claude-sonnet-4-5-20250929)
 - **Testing**: Community contributors
 
