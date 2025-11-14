@@ -20,6 +20,6 @@
 # After modifying, run: /etc/init.d/firewall restart
 
 # Local network (adjust to match your network)
-192.168.1.0/24
+# 192.168.1.0/24
 
 # Add your trusted networks below:
